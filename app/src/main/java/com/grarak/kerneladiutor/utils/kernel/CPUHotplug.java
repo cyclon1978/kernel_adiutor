@@ -1726,6 +1726,7 @@ public class CPUHotplug implements Constants {
         if (CPUHotplug.isDynPlugActive() && hasDynPlugEnable() && !activehotplug.equals("DynPlug")) Control.runCommand("N", HOTPLUG_DYN_PLUG_ENABLE, Control.CommandType.GENERIC, context);
         if (CPUHotplug.isAutoHotplugActive() && hasAutoHotplugEnable() && !activehotplug.equals("AutoHotplug")) Control.runCommand("N", HOTPLUG_AUTO_HOTPLUG_ENABLE, Control.CommandType.GENERIC, context);
         if (CPUHotplug.isHimaActive() && hasHimaEnable() && !activehotplug.equals("Hima")) Control.runCommand("N", HIMA_HOTPLUG_ENABLE, Control.CommandType.GENERIC, context);
+        if (CPUHotplug.isClusterPlugActive() && hasClusterPlugEnable() && !activehotplug.equals("ClusterPlug")) Control.runCommand("0", CLUSTERPLUG_HOTPLUG_ENABLE, Control.CommandType.GENERIC, context);
     }
 
     public static boolean hasMSMSleeper () {
@@ -1990,4 +1991,93 @@ public class CPUHotplug implements Constants {
         Control.runCommand(String.valueOf(value), HIMA_HOTPLUG_DEF_SAMPLING_MS, Control.CommandType.GENERIC, context);
     }
 
+    public static boolean hasClusterPlug() {
+        return Utils.existFile(CLUSTERPLUG_HOTPLUG);
+    }
+
+    public static boolean hasClusterPlugEnable() {
+        return Utils.existFile(CLUSTERPLUG_HOTPLUG_ENABLE);
+    }
+
+    public static boolean isClusterPlugActive() {
+        return Utils.readFile(CLUSTERPLUG_HOTPLUG_ENABLE).equals("1");
+    }
+
+    public static void activateClusterPlug(boolean active, Context context) {
+        Control.runCommand(active ? "1" : "0", CLUSTERPLUG_HOTPLUG_ENABLE, Control.CommandType.GENERIC, context);
+        if (active) togglehotplugs("ClusterPlug", context);
+    }
+    
+    public static boolean hasClusterPlugLowPowerMode() {
+        return Utils.existFile(CLUSTERPLUG_HOTPLUG_LOW_POWER_MODE);
+    }
+
+    public static boolean isClusterPlugLowPowerModeActive() {
+        return Utils.readFile(CLUSTERPLUG_HOTPLUG_LOW_POWER_MODE).equals("1");
+    }
+
+    public static void activateClusterPlugLowPowerMode(boolean active, Context context) {
+        Control.runCommand(active ? "1" : "0", CLUSTERPLUG_HOTPLUG_LOW_POWER_MODE, Control.CommandType.GENERIC, context);
+    }
+
+    public static boolean hasClusterPlugSamplingTime() {
+        return Utils.existFile(CLUSTERPLUG_HOTPLUG_SAMPLING_TIME);
+    }
+	
+    public static int getClusterPlugSamplingTime() {
+        return Utils.stringToInt(Utils.readFile(CLUSTERPLUG_HOTPLUG_SAMPLING_TIME));
+    }
+
+    public static void setClusterPlugSamplingTime(int value, Context context) {
+        Control.runCommand(String.valueOf(value), CLUSTERPLUG_HOTPLUG_SAMPLING_TIME, Control.CommandType.GENERIC, context);
+    }
+
+    public static boolean hasClusterPlugLoadThresholdUp() {
+        return Utils.existFile(CLUSTERPLUG_HOTPLUG_LOAD_THRESHOLD_UP);
+    }
+	
+    public static int getClusterPlugLoadThresholdUp() {
+        return Utils.stringToInt(Utils.readFile(CLUSTERPLUG_HOTPLUG_LOAD_THRESHOLD_UP));
+    }
+
+    public static void setClusterPlugLoadThresholdUp(int value, Context context) {
+        Control.runCommand(String.valueOf(value), CLUSTERPLUG_HOTPLUG_LOAD_THRESHOLD_UP, Control.CommandType.GENERIC, context);
+    }
+
+    public static boolean hasClusterPlugLoadThresholdDown() {
+        return Utils.existFile(CLUSTERPLUG_HOTPLUG_LOAD_THRESHOLD_DOWN);
+    }
+
+    public static int getClusterPlugLoadThresholdDown() {
+        return Utils.stringToInt(Utils.readFile(CLUSTERPLUG_HOTPLUG_LOAD_THRESHOLD_DOWN));
+    }
+
+    public static void setClusterPlugLoadThresholdDown(int value, Context context) {
+        Control.runCommand(String.valueOf(value), CLUSTERPLUG_HOTPLUG_LOAD_THRESHOLD_DOWN, Control.CommandType.GENERIC, context);
+    }
+
+    public static boolean hasClusterPlugVoteThresholdUp() {
+        return Utils.existFile(CLUSTERPLUG_HOTPLUG_VOTE_THRESHOLD_UP);
+    }
+
+    public static int getClusterPlugVoteThresholdUp() {
+        return Utils.stringToInt(Utils.readFile(CLUSTERPLUG_HOTPLUG_VOTE_THRESHOLD_UP));
+    }
+
+    public static void setClusterPlugVoteThresholdUp(int value, Context context) {
+        Control.runCommand(String.valueOf(value), CLUSTERPLUG_HOTPLUG_VOTE_THRESHOLD_UP, Control.CommandType.GENERIC, context);
+    }
+
+    public static boolean hasClusterPlugVoteThresholdDown() {
+        return Utils.existFile(CLUSTERPLUG_HOTPLUG_VOTE_THRESHOLD_DOWN);
+    }
+
+    public static int getClusterPlugVoteThresholdDown() {
+        return Utils.stringToInt(Utils.readFile(CLUSTERPLUG_HOTPLUG_VOTE_THRESHOLD_DOWN));
+    }
+    
+    public static void setClusterPlugVoteThresholdDown(int value, Context context) {
+        Control.runCommand(String.valueOf(value), CLUSTERPLUG_HOTPLUG_VOTE_THRESHOLD_DOWN, Control.CommandType.GENERIC, context);
+    }
+    
 }

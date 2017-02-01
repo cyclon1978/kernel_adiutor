@@ -187,6 +187,10 @@ public class CPUHotplugFragment extends RecyclerViewFragment implements
     private SeekBarCardView.DSeekBarCard mHimaMinCpusCard, mHimaMaxCpusCard, mHimaSamplingRateCard;
     private PopupCardView.DPopupCard mHimaProfileCard;
 
+    private SwitchCardView.DSwitchCard mClusterPlugEnableCard;
+    private SwitchCardView.DSwitchCard mClusterPlugLowPowerModeCard;
+    private SeekBarCardView.DSeekBarCard mClusterPlugSamplingTimeCard, mClusterPlugLoadThresholdUpCard, mClusterPlugLoadThresholdDownCard, mClusterPlugVoteThresholdUpCard, mClusterPlugVoteThresholdDownCard;
+
     @Override
     public void init(Bundle savedInstanceState) {
         super.init(savedInstanceState);
@@ -209,6 +213,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment implements
         if (CPUHotplug.hasbch()) bchInit();
         if (CPUHotplug.hasmsmperformance()) msmperformanceInit();
         if (CPUHotplug.hasHima()) himaInit();
+        if (CPUHotplug.hasClusterPlug()) clusterPlugInit();
         tunablesInit();
     }
 
@@ -424,6 +429,18 @@ public class CPUHotplugFragment extends RecyclerViewFragment implements
             mHimaEnableCard.setOnDSwitchCardListener(this);
 
             addView(mHimaEnableCard);
+        }
+    }
+
+    private void clusterPlugInit() {
+        if (CPUHotplug.hasClusterPlugEnable()) {
+            mClusterPlugEnableCard = new SwitchCardView.DSwitchCard();
+            mClusterPlugEnableCard.setTitle("Cluster Plug");
+            mClusterPlugEnableCard.setDescription("Big or Litte Cluster will be completly disabled to save battery");
+            mClusterPlugEnableCard.setChecked(CPUHotplug.isClusterPlugActive());
+            mClusterPlugEnableCard.setOnDSwitchCardListener(this);
+
+            addView(mClusterPlugEnableCard);
         }
     }
 
@@ -2178,6 +2195,91 @@ public class CPUHotplugFragment extends RecyclerViewFragment implements
 
         }
 
+        // ClusterPlug Tunables
+        if (CPUHotplug.isClusterPlugActive() || (!CPUHotplug.hasClusterPlugEnable() && CPUHotplug.hasClusterPlug())) {
+            DDivider mClusterPlugDividerCard = new DDivider();
+            mClusterPlugDividerCard.setText("Cluster_Plug Hotplug");
+            if (!CPUHotplug.hasClusterPlugEnable() && CPUHotplug.hasClusterPlug()) {
+                mClusterPlugDividerCard.setDescription(getString(R.string.no_enable_toggle));
+            }
+            views.add(mClusterPlugDividerCard);
+
+            if (CPUHotplug.hasClusterPlugLowPowerMode()) {
+                mClusterPlugLowPowerModeCard = new SwitchCardView.DSwitchCard();
+                mClusterPlugLowPowerModeCard.setTitle("low_power_mode");
+                mClusterPlugLowPowerModeCard.setDescription("safe more energy, less performance");
+                mClusterPlugLowPowerModeCard.setChecked(CPUHotplug.isClusterPlugLowPowerModeActive());
+                mClusterPlugLowPowerModeCard.setOnDSwitchCardListener(this);
+
+                views.add(mClusterPlugLowPowerModeCard);
+            }
+
+            if (CPUHotplug.hasClusterPlugSamplingTime()) {
+                List<String> list = new ArrayList<>();
+                for (int i = 0; i < 1001; i++)
+                    list.add(String.valueOf(i + 1));
+
+                mClusterPlugSamplingTimeCard = new SeekBarCardView.DSeekBarCard(list);
+                mClusterPlugSamplingTimeCard.setTitle("sampling_time");
+                mClusterPlugSamplingTimeCard.setProgress(CPUHotplug.getClusterPlugSamplingTime());
+                mClusterPlugSamplingTimeCard.setOnDSeekBarCardListener(this);
+
+                views.add(mClusterPlugSamplingTimeCard);
+            }
+
+            if (CPUHotplug.hasClusterPlugLoadThresholdUp()) {
+                List<String> list = new ArrayList<>();
+                for (int i = 0; i < 1001; i++)
+                    list.add(String.valueOf(i + 1));
+
+                mClusterPlugLoadThresholdUpCard = new SeekBarCardView.DSeekBarCard(list);
+                mClusterPlugLoadThresholdUpCard.setTitle("load_threshold_up");
+                mClusterPlugLoadThresholdUpCard.setProgress(CPUHotplug.getClusterPlugLoadThresholdUp());
+                mClusterPlugLoadThresholdUpCard.setOnDSeekBarCardListener(this);
+
+                views.add(mClusterPlugLoadThresholdUpCard);
+            }
+
+            if (CPUHotplug.hasClusterPlugLoadThresholdDown()) {
+                List<String> list = new ArrayList<>();
+                for (int i = 0; i < 1001; i++)
+                    list.add(String.valueOf(i + 1));
+
+                mClusterPlugLoadThresholdDownCard = new SeekBarCardView.DSeekBarCard(list);
+                mClusterPlugLoadThresholdDownCard.setTitle("load_threshold_down");
+                mClusterPlugLoadThresholdDownCard.setProgress(CPUHotplug.getClusterPlugLoadThresholdDown());
+                mClusterPlugLoadThresholdDownCard.setOnDSeekBarCardListener(this);
+
+                views.add(mClusterPlugLoadThresholdDownCard);
+            }
+
+            if (CPUHotplug.hasClusterPlugVoteThresholdUp()) {
+                List<String> list = new ArrayList<>();
+                for (int i = 0; i < 1001; i++)
+                    list.add(String.valueOf(i + 1));
+
+                mClusterPlugVoteThresholdUpCard = new SeekBarCardView.DSeekBarCard(list);
+                mClusterPlugVoteThresholdUpCard.setTitle("vote_threshold_up");
+                mClusterPlugVoteThresholdUpCard.setProgress(CPUHotplug.getClusterPlugVoteThresholdUp());
+                mClusterPlugVoteThresholdUpCard.setOnDSeekBarCardListener(this);
+
+                views.add(mClusterPlugVoteThresholdUpCard);
+            }
+
+            if (CPUHotplug.hasClusterPlugVoteThresholdDown()) {
+                List<String> list = new ArrayList<>();
+                for (int i = 0; i < 1001; i++)
+                    list.add(String.valueOf(i + 1));
+
+                mClusterPlugVoteThresholdDownCard = new SeekBarCardView.DSeekBarCard(list);
+                mClusterPlugVoteThresholdDownCard.setTitle("vote_threshold_down");
+                mClusterPlugVoteThresholdDownCard.setProgress(CPUHotplug.getClusterPlugVoteThresholdDown());
+                mClusterPlugVoteThresholdDownCard.setOnDSeekBarCardListener(this);
+
+                views.add(mClusterPlugVoteThresholdDownCard);
+            }
+
+        }
         if (views.size() > 0) {
             addAllViews(views);
         }
@@ -2249,6 +2351,10 @@ public class CPUHotplugFragment extends RecyclerViewFragment implements
             CPUHotplug.activatebch(checked, getActivity());
         else if (dSwitchCard == mHimaEnableCard)
             CPUHotplug.activateHima(checked, getActivity());
+        else if (dSwitchCard == mClusterPlugEnableCard)
+            CPUHotplug.activateClusterPlug(checked, getActivity());
+        else if (dSwitchCard == mClusterPlugLowPowerModeCard)
+            CPUHotplug.activateClusterPlugLowPowerMode(checked, getActivity());
         view.invalidate();
         getActivity().getSupportFragmentManager().beginTransaction().detach(this).attach(this).commit();
 
@@ -2489,5 +2595,15 @@ public class CPUHotplugFragment extends RecyclerViewFragment implements
             CPUHotplug.setHimaMaxOnline(position + 1, getActivity());
         else if (dSeekBarCard == mHimaSamplingRateCard)
             CPUHotplug.setHimaSamplingRate(position, getActivity());
+        else if (dSeekBarCard == mClusterPlugSamplingTimeCard)
+            CPUHotplug.setClusterPlugSamplingTime(position, getActivity());
+        else if (dSeekBarCard == mClusterPlugLoadThresholdUpCard)
+            CPUHotplug.setClusterPlugLoadThresholdUp(position, getActivity());
+        else if (dSeekBarCard == mClusterPlugLoadThresholdDownCard)
+            CPUHotplug.setClusterPlugLoadThresholdDown(position, getActivity());			
+        else if (dSeekBarCard == mClusterPlugVoteThresholdUpCard)
+            CPUHotplug.setClusterPlugVoteThresholdUp(position, getActivity());			
+        else if (dSeekBarCard == mClusterPlugVoteThresholdDownCard)
+            CPUHotplug.setClusterPlugVoteThresholdDown(position, getActivity());
     }
 }
