@@ -189,9 +189,13 @@ public interface Constants {
     String HOTPLUG_MSM = "/sys/module/msm_hotplug";
     String HOTPLUG_MSM_ENABLE = HOTPLUG_MSM + "/enabled";
     String HOTPLUG_MSM_ENABLE_2 = HOTPLUG_MSM + "/msm_enabled";
+    String HOTPLUG_MSM_ENABLE_3 = HOTPLUG_MSM + "/msm_enabled_ops";
+    String HOTPLUG_MSM_DEBUG = HOTPLUG_MSM + "/debug";
     String HOTPLUG_MSM_DEBUG_MASK = HOTPLUG_MSM + "/parameters/debug_mask";
     String HOTPLUG_MSM_MIN_CPUS_ONLINE = HOTPLUG_MSM + "/min_cpus_online";
     String HOTPLUG_MSM_MAX_CPUS_ONLINE = HOTPLUG_MSM + "/max_cpus_online";
+    String HOTPLUG_MSM_MIN_CPUS_ONLINE_BIG = HOTPLUG_MSM + "/min_cpus_online_big";
+    String HOTPLUG_MSM_MAX_CPUS_ONLINE_BIG = HOTPLUG_MSM + "/max_cpus_online_big";
     String HOTPLUG_MSM_CPUS_BOOSTED = HOTPLUG_MSM + "/cpus_boosted";
     String HOTPLUG_MSM_MAX_CPUS_ONLINE_SUSP = HOTPLUG_MSM + "/max_cpus_online_susp";
     String HOTPLUG_MSM_BOOST_LOCK_DURATION = HOTPLUG_MSM + "/boost_lock_duration";
@@ -202,6 +206,10 @@ public interface Constants {
     String HOTPLUG_MSM_FAST_LANE_LOAD = HOTPLUG_MSM + "/fast_lane_load";
     String HOTPLUG_MSM_FAST_LANE_MIN_FREQ = HOTPLUG_MSM + "/fast_lane_min_freq";
     String HOTPLUG_MSM_OFFLINE_LOAD = HOTPLUG_MSM + "/offline_load";
+    String HOTPLUG_MSM_OFFLINE_LOAD_BIG = HOTPLUG_MSM + "/offline_load_big";
+    String HOTPLUG_MSM_ONLINE_LOAD_BIG = HOTPLUG_MSM + "/online_load_big";
+    String HOTPLUG_MSM_KICK_IN_LOAD_BIG = HOTPLUG_MSM + "/kick_in_load_big";
+    String HOTPLUG_MSM_BIG_CORE_UP_DELAY = HOTPLUG_MSM + "/big_core_up_delay";
     String HOTPLUG_MSM_IO_IS_BUSY = HOTPLUG_MSM + "/io_is_busy";
     String HOTPLUG_MSM_HP_IO_IS_BUSY = HOTPLUG_MSM + "/hp_io_is_busy";
     String HOTPLUG_MSM_SUSPEND_MAX_CPUS = HOTPLUG_MSM + "/suspend_max_cpus";
@@ -210,7 +218,7 @@ public interface Constants {
     String HOTPLUG_MSM_SUSPEND_DEFER_TIME = HOTPLUG_MSM + "/suspend_defer_time";
 
     String[] HOTPLUG_MSM_ARRAY = {HOTPLUG_MSM};
-    String[] HOTPLUG_MSM_ENABLE_ARRAY = {HOTPLUG_MSM_ENABLE,HOTPLUG_MSM_ENABLE_2 };
+    String[] HOTPLUG_MSM_ENABLE_ARRAY = {HOTPLUG_MSM_ENABLE,HOTPLUG_MSM_ENABLE_2,HOTPLUG_MSM_ENABLE_3};
 
     String MAKO_HOTPLUG = "/sys/class/misc/mako_hotplug_control";
     String MAKO_HOTPLUG_ENABLED = MAKO_HOTPLUG + "/enabled";

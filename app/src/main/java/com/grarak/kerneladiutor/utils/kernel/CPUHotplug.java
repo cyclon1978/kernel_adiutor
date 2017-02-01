@@ -1091,6 +1091,30 @@ public class CPUHotplug implements Constants {
         return Utils.existFile(HOTPLUG_MSM_SUSPEND_MAX_CPUS);
     }
 
+    public static void setMsmHotplugBigCoreUpDelay(int value, Context context) {
+        Control.runCommand(String.valueOf(value), HOTPLUG_MSM_BIG_CORE_UP_DELAY, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getMsmHotplugBigCoreUpDelay() {
+        return Utils.stringToInt(Utils.readFile(HOTPLUG_MSM_BIG_CORE_UP_DELAY));
+    }
+
+    public static boolean hasMsmHotplugBigCoreUpDelay() {
+        return Utils.existFile(HOTPLUG_MSM_BIG_CORE_UP_DELAY);
+    }
+
+    public static void setMsmHotplugKickInLoadBig(int value, Context context) {
+        Control.runCommand(String.valueOf(value), HOTPLUG_MSM_KICK_IN_LOAD_BIG, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getMsmHotplugKickInLoadBig() {
+        return Utils.stringToInt(Utils.readFile(HOTPLUG_MSM_KICK_IN_LOAD_BIG));
+    }
+
+    public static boolean hasMsmHotplugKickInLoadBig() {
+        return Utils.existFile(HOTPLUG_MSM_KICK_IN_LOAD_BIG);
+    }
+
     public static void activateMsmHotplugIoIsBusy(boolean active, Context context) {
         Control.runCommand(active ? "1" : "0", MSM_HOTPLUG_IO_IS_BUSY_FILE, Control.CommandType.GENERIC, context);
     }
@@ -1117,6 +1141,30 @@ public class CPUHotplug implements Constants {
 
     public static boolean hasMsmHotplugOfflineLoad() {
         return Utils.existFile(HOTPLUG_MSM_OFFLINE_LOAD);
+    }
+
+    public static void setMsmHotplugOfflineLoadBig(int value, Context context) {
+        Control.runCommand(String.valueOf(value), HOTPLUG_MSM_OFFLINE_LOAD_BIG, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getMsmHotplugOfflineLoadBig() {
+        return Utils.stringToInt(Utils.readFile(HOTPLUG_MSM_OFFLINE_LOAD_BIG));
+    }
+
+    public static boolean hasMsmHotplugOfflineLoadBig() {
+        return Utils.existFile(HOTPLUG_MSM_OFFLINE_LOAD_BIG);
+    }
+
+    public static void setMsmHotplugOnlineLoadBig(int value, Context context) {
+        Control.runCommand(String.valueOf(value), HOTPLUG_MSM_ONLINE_LOAD_BIG, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getMsmHotplugOnlineLoadBig() {
+        return Utils.stringToInt(Utils.readFile(HOTPLUG_MSM_ONLINE_LOAD_BIG));
+    }
+
+    public static boolean hasMsmHotplugOnlineLoadBig() {
+        return Utils.existFile(HOTPLUG_MSM_ONLINE_LOAD_BIG);
     }
 
     public static void setMsmHotplugFastLaneMinFreq(int value, Context context) {
@@ -1243,6 +1291,30 @@ public class CPUHotplug implements Constants {
         return Utils.existFile(HOTPLUG_MSM_MIN_CPUS_ONLINE);
     }
 
+    public static void setMsmHotplugMaxCpusOnlineBig(int value, Context context) {
+        Control.runCommand(String.valueOf(value), HOTPLUG_MSM_MAX_CPUS_ONLINE_BIG, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getMsmHotplugMaxCpusOnlineBig() {
+        return Utils.stringToInt(Utils.readFile(HOTPLUG_MSM_MAX_CPUS_ONLINE_BIG));
+    }
+
+    public static boolean hasMsmHotplugMaxCpusOnlineBig() {
+        return Utils.existFile(HOTPLUG_MSM_MAX_CPUS_ONLINE_BIG);
+    }
+
+    public static void setMsmHotplugMinCpusOnlineBig(int value, Context context) {
+        Control.runCommand(String.valueOf(value), HOTPLUG_MSM_MIN_CPUS_ONLINE_BIG, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getMsmHotplugMinCpusOnlineBig() {
+        return Utils.stringToInt(Utils.readFile(HOTPLUG_MSM_MIN_CPUS_ONLINE_BIG));
+    }
+
+    public static boolean hasMsmHotplugMinCpusOnlineBig() {
+        return Utils.existFile(HOTPLUG_MSM_MIN_CPUS_ONLINE_BIG);
+    }
+
     public static void activateMsmHotplugDebugMask(boolean active, Context context) {
         Control.runCommand(active ? "1" : "0", HOTPLUG_MSM_DEBUG_MASK, Control.CommandType.GENERIC, context);
     }
@@ -1253,6 +1325,18 @@ public class CPUHotplug implements Constants {
 
     public static boolean hasMsmHotplugDebugMask() {
         return Utils.existFile(HOTPLUG_MSM_DEBUG_MASK);
+    }
+
+    public static void activateMsmHotplugDebug(boolean active, Context context) {
+        Control.runCommand(active ? "1" : "0", HOTPLUG_MSM_DEBUG, Control.CommandType.GENERIC, context);
+    }
+
+    public static boolean isMsmHotplugDebugActive() {
+        return Utils.readFile(HOTPLUG_MSM_DEBUG).equals("1");
+    }
+
+    public static boolean hasMsmHotplugDebug() {
+        return Utils.existFile(HOTPLUG_MSM_DEBUG);
     }
 
     public static void activateMsmHotplug(boolean active, Context context) {
