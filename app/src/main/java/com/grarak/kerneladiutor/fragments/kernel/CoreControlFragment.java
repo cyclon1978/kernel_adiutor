@@ -34,9 +34,12 @@ import java.util.List;
 
 
 public class CoreControlFragment extends RecyclerViewFragment implements
-        SeekBarCardView.DSeekBarCard.OnDSeekBarCardListener {
+        SeekBarCardView.DSeekBarCard.OnDSeekBarCardListener, SwitchCardView.DSwitchCard.OnDSwitchCardListener {
+
+    private SwitchCardView.DSwitchCard mDisableLittleCard;
     private SeekBarCardView.DSeekBarCard mMinLittleCard;
     private SeekBarCardView.DSeekBarCard mMaxLittleCard;
+    private SwitchCardView.DSwitchCard mDisableBigCard;
     private SeekBarCardView.DSeekBarCard mMinBigCard;
     private SeekBarCardView.DSeekBarCard mMaxBigCard;
 
@@ -44,10 +47,24 @@ public class CoreControlFragment extends RecyclerViewFragment implements
     public void init(Bundle savedInstanceState) {
         super.init(savedInstanceState);
 
+        if (CoreControl.hasDisableLittle()) DisableLittleInit();
         if (CoreControl.hasMinLittle()) MinLittleInit();
         if (CoreControl.hasMaxLittle()) MaxLittleInit();
+        if (CoreControl.hasDisableBig()) DisableBigInit();
         if (CoreControl.hasMinBig()) MinBigInit();
         if (CoreControl.hasMaxBig()) MaxBigInit();
+    }
+   
+    private void DisableLittleInit() {
+        if (CoreControl.hasDisableLittle()) {
+            mDisableLittleCard = new SwitchCardView.DSwitchCard();
+            //mDisableLittleCard.setDescription(getString(R.string.power_saving_wq));
+            mDisableLittleCard.setDescription("Disable Litte Cluster Control");
+            mDisableLittleCard.setChecked(CoreControl.getDisableLittle());
+            mDisableLittleCard.setOnDSwitchCardListener(this);
+
+            addView(mDisableLittleCard);
+        }
     }
    
     private void MinLittleInit() {
@@ -79,6 +96,18 @@ public class CoreControlFragment extends RecyclerViewFragment implements
             addView(mMaxLittleCard);
         }
 
+    }
+
+    private void DisableBigInit() {
+        if (CoreControl.hasDisableBig()) {
+            mDisableBigCard = new SwitchCardView.DSwitchCard();
+            //mDisableBigCard.setDescription(getString(R.string.power_saving_wq));
+            mDisableBigCard.setDescription("Disable Big Cluster Control");
+            mDisableBigCard.setChecked(CoreControl.getDisableBig());
+            mDisableBigCard.setOnDSwitchCardListener(this);
+
+            addView(mDisableBigCard);
+        }
     }
 
     private void MinBigInit() {
@@ -126,5 +155,14 @@ public class CoreControlFragment extends RecyclerViewFragment implements
             CoreControl.setMaxLittle(position + 1, getActivity());
          else if (dSeekBarCard == mMaxBigCard)
             CoreControl.setMaxLittle(position + 1, getActivity());
-}
+    }
+
+    @Override
+    public void onChecked(SwitchCardView.DSwitchCard dSwitchCard, boolean checked) {
+        if (dSwitchCard == mDisableLittleCard)
+            CoreControl.setDisableLittle(checked, getActivity());
+        else if (dSwitchCard == mDisableBigCard)
+            CoreControl.setDisableBig(checked, getActivity());
+    }
+
 }

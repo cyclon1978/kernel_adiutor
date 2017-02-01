@@ -30,6 +30,7 @@ import android.util.Log;
 import com.grarak.kerneladiutor.MainActivity;
 import com.grarak.kerneladiutor.R;
 import com.grarak.kerneladiutor.fragments.kernel.BatteryFragment;
+import com.grarak.kerneladiutor.fragments.kernel.CoreControlFragment;
 import com.grarak.kerneladiutor.fragments.kernel.CPUFragment;
 import com.grarak.kerneladiutor.fragments.kernel.CPUHotplugFragment;
 import com.grarak.kerneladiutor.fragments.kernel.CPUVoltageFragment;
@@ -93,7 +94,7 @@ public class BootService extends Service {
                 CPUVoltageFragment.class, EntropyFragment.class, GPUFragment.class, IOFragment.class,
                 KSMFragment.class, LMKFragment.class, MiscFragment.class,
                 ScreenFragment.class, SoundFragment.class, ThermalFragment.class, WakeLockFragment.class,
-                VMFragment.class, WakeFragment.class, CoreControl.class
+                VMFragment.class, WakeFragment.class, CoreControlFragment.class
         };
 
         for (Class mClass : classes)

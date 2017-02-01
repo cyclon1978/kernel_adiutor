@@ -42,6 +42,7 @@ import android.widget.Toast;
 
 import com.grarak.kerneladiutor.R;
 import com.grarak.kerneladiutor.fragments.kernel.BatteryFragment;
+import com.grarak.kerneladiutor.fragments.kernel.CoreControlFragment;
 import com.grarak.kerneladiutor.fragments.kernel.CPUFragment;
 import com.grarak.kerneladiutor.fragments.kernel.CPUHotplugFragment;
 import com.grarak.kerneladiutor.fragments.kernel.CPUVoltageFragment;
@@ -377,6 +378,8 @@ public class Utils implements Constants {
             applys.addAll(new ArrayList<>(Arrays.asList(arrays)));
         else if (mClass == WakeLockFragment.class) for (String[] arrays : WAKELOCK_ARRAY)
             applys.addAll(new ArrayList<>(Arrays.asList(arrays)));
+        else if (mClass == CoreControlFragment.class)
+            applys.addAll(new ArrayList<>(Arrays.asList(CORECONTROL_ARRAY)));
 
         return applys;
     }

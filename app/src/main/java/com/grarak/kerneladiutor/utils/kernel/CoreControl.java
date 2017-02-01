@@ -29,6 +29,22 @@ import java.util.List;
 
 public class CoreControl implements Constants {
 
+    public static void setDisableLittle(boolean value, Context context) {
+        if (value) {
+            Control.runCommand("1", DISABLELITTLE, Control.CommandType.GENERIC, context);
+        } else {
+            Control.runCommand("0", DISABLELITTLE, Control.CommandType.GENERIC, context);
+        }
+    }
+
+    public static boolean getDisableLittle() {
+        return Utils.readFile(DISABLELITTLE).equals("1");
+    }
+
+    public static boolean hasDisableLittle() {
+        return Utils.existFile(DISABLELITTLE);
+    }
+
     public static void setMinLittle(int value, Context context) {
         Control.runCommand(String.valueOf(value), MINLITTLE, Control.CommandType.GENERIC, context);
     }
@@ -49,6 +65,22 @@ public class CoreControl implements Constants {
 
     public static boolean hasMaxLittle() {
         return Utils.existFile(MAXLITTLE);
+    }
+
+    public static void setDisableBig(boolean value, Context context) {
+		if (value) {
+			Control.runCommand("1", DISABLEBIG, Control.CommandType.GENERIC, context);
+		} else {
+			Control.runCommand("0", DISABLEBIG, Control.CommandType.GENERIC, context);
+		}
+    }
+
+    public static boolean getDisableBig() {
+        return Utils.readFile(DISABLEBIG).equals("1");
+    }
+
+    public static boolean hasDisableBig() {
+        return Utils.existFile(DISABLEBIG);
     }
 
     public static void setMinBig(int value, Context context) {
